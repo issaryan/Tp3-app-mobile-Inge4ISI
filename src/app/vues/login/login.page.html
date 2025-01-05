@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <!-- Logo ou image -->
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo de l'application" class="logo" />
+    </div>
+
+    <!-- Titre accrocheur -->
+    <ion-text color="primary" class="welcome-text">
+      <h1>Bienvenue !</h1>
+    </ion-text>
+    <ion-text color="medium" class="subtitle-text">
+      <p>Connectez-vous pour accéder à votre compte.</p>
+    </ion-text>
+
+    <!-- Formulaire de connexion -->
+    <ion-list lines="none" class="form-container">
+      <ion-item class="input-item">
+        <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+        <ion-label position="floating" color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" name="email" required class="input-field"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+        <ion-label position="floating" color="primary">Mot de passe</ion-label>
+        <ion-input [(ngModel)]="password" type="password" name="password" required class="input-field"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <!-- Bouton de connexion -->
+    <ion-button expand="full" (click)="login()" class="login-button">
+      Se connecter
+    </ion-button>
+
+    <!-- Lien vers l'inscription -->
+    <div class="signup-link">
+      <ion-text color="medium">
+        <p>Pas encore de compte ? <a href="/signup">S'inscrire</a></p>
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

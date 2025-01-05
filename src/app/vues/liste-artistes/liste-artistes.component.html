@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Liste des Artistes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Skeleton Loader pendant le chargement -->
+  @if (isLoading && artistes.length === 0) {
+    <ion-list>
+      @for (item of skeletonItems; track item) {
+        <ion-item class="skeleton-item">
+          <ion-thumbnail slot="start" class="skeleton-thumbnail">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label class="skeleton-label">
+            <h2><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></h2>
+            <p><ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
+
+  <!-- Liste des artistes une fois chargée -->
+  @if (!isLoading || artistes.length > 0) {
+    <ion-list>
+      @for (artiste of artistes; track artiste.id) {
+        <ion-item [routerLink]="['/artiste', artiste.id]" class="artiste-item">
+          <ion-thumbnail slot="start" class="artiste-thumbnail">
+            <img [src]="artiste.image" [alt]="artiste.nom_de_scene" />
+          </ion-thumbnail>
+          <ion-label class="artiste-info">
+            <h2 class="artiste-name">{{ artiste.nom_de_scene }}</h2>
+            <p class="artiste-real-name">{{ artiste.nom }}</p>
+            <p class="artiste-albums">Albums: {{ artiste.nombre_albums }}</p>
+            <p class="artiste-note">Note moyenne: {{ artiste.average_note || 'Non noté' }}</p>
+            <p class="artiste-abonnement">
+              @if (artiste.isFollowing) {
+                <ion-icon name="checkmark-circle" color="success"></ion-icon> Abonné
+              } @else {
+                <ion-icon name="close-circle" color="danger"></ion-icon> Non abonné
+              }
+            </p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
+
+  <!-- Infinite Scroll pour charger plus d'artistes -->
+  <ion-infinite-scroll (ionInfinite)="loadMoreArtistes($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Chargement de plus d'artistes..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

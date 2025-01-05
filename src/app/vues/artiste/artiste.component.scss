@@ -1,0 +1,39 @@
+/* src/app/components/artiste/artiste.component.scss */
+.artiste-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 16px;
+  }
+  
+  .artiste-image {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .artiste-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+  
+  .artiste-real-name {
+    font-size: 1rem;
+    color: var(--ion-color-medium);
+  }
+  
+  ion-list {
+    background: transparent;
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --background: transparent;
+    --border-color: transparent;
+  }
+  
+  ion-icon {
+    margin-right: 8px;
+  }

@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détails de l'Artiste</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (artiste) {
+    <ion-card class="artiste-card">
+      <ion-img [src]="artiste.image" [alt]="artiste.nom_de_scene" class="artiste-image"></ion-img>
+      <ion-card-header>
+        <ion-card-title class="artiste-name">{{ artiste.nom_de_scene }}</ion-card-title>
+        <ion-card-subtitle class="artiste-real-name">{{ artiste.nom }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-icon name="albums-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>Nombre d'albums: {{ artiste.nombre_albums }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="business-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>Label: {{ artiste.label || 'Non spécifié' }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="library-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>Maison d'édition: {{ artiste.maison_edition || 'Non spécifié' }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>Années en exercice: {{ anneesExercice }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="star-outline" slot="start" color="primary"></ion-icon>
+            <ion-label>Note moyenne: {{ artiste.average_note || 'Non noté' }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- Notation par étoiles -->
+        <div class="rating-container">
+          <p>Notez cet artiste :</p>
+          <div class="stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <ion-icon
+                [name]="star <= currentRating ? 'star' : 'star-outline'"
+                (click)="setRating(star)"
+                [color]="star <= currentRating ? 'warning' : 'medium'"
+              ></ion-icon>
+            }
+          </div>
+          <ion-button expand="full" (click)="noterArtiste()" [disabled]="hasNoted">
+            Noter l'artiste
+          </ion-button>
+        </div>
+
+        <!-- Bouton pour s'abonner -->
+        <ion-button expand="full" (click)="suivreArtiste()" [disabled]="isFollowing">
+          {{ isFollowing ? 'Abonné' : 'S\'abonner' }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <ion-item>
+      <ion-label>Aucun artiste trouvé</ion-label>
+    </ion-item>
+  }
+</ion-content>
